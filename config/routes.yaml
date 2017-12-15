@@ -1,8 +1,3 @@
 #index:
 #    path: /
 #    defaults: { _controller: 'App\Controller\DefaultController::index' }
-
-api:
-    resource: '.'
-    type: 'api_platform'
-    prefix: '/api'
