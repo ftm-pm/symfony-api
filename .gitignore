@@ -9,3 +9,4 @@
 ### custom ###
 /.idea/
 /node_modules/
+/config/packages/jwt/
