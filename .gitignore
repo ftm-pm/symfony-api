@@ -10,3 +10,4 @@
 /.idea/
 /node_modules/
 /config/packages/jwt/
+/public/Nginx-1.12_vhost.conf
