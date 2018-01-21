@@ -50,6 +50,7 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, options={"comment": "Email"})
+     * @Groups({"read", "write"})
      */
     private $email;
 
@@ -78,7 +79,6 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
 
     /**
      * Plain password. Used for model validation. Must not be persisted.
-     *
      * @var string
      */
     private $plainPassword;

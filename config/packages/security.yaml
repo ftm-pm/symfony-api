@@ -39,7 +39,7 @@ security:
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
-            lexik_jwt: ~ # check token in Authorization Header, with a value prefix of e:    bearer
+            lexik_jwt: ~
 
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

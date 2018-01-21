@@ -8,6 +8,9 @@
             "ref": "b50f8aa321cc40c380dda7605aa5cef66f476802"
         }
     },
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -64,6 +67,9 @@
     },
     "doctrine/orm": {
         "version": "v2.5.13"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.33"
     },
     "gfreeau/get-jwt-bundle": {
         "version": "2.0.x-dev"
@@ -188,6 +194,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
     },
+    "symfony/polyfill-php72": {
+        "version": "v1.6.0"
+    },
     "symfony/property-access": {
         "version": "v4.0.2"
     },
@@ -241,6 +250,9 @@
     },
     "symfony/validator": {
         "version": "v4.0.2"
+    },
+    "symfony/var-dumper": {
+        "version": "v4.0.3"
     },
     "symfony/yaml": {
         "version": "v4.0.2"

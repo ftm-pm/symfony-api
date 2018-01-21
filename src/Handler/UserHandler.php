@@ -31,7 +31,7 @@ class UserHandler
      */
     public function hashPassword(User $user)
     {
-        $plainPassword = $user->getPlainPassword();
+        $plainPassword = $user->getPassword();
 
         if (0 !== strlen($plainPassword)) {
             $encoder = $this->encoderFactory->getEncoder($user);

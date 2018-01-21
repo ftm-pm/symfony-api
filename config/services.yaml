@@ -2,6 +2,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    languages: ['en', 'ru']
 
 services:
     # default configuration for services in *this* file
@@ -24,11 +25,20 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    App\EventListener\:
-        resource: '../src/EventListener'
+    App\Serializer\ApiNormalizer:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        arguments: [ '@App\Serializer\ApiNormalizer.inner' ]
+
+    App\Handler\TranslationHandler:
+        arguments:
+            - "@doctrine"
+            - "%locale%"
+            - "%languages%"
+
+    App\EventSubscriber\DoctrineEventSubscriber:
         tags:
             - { name: doctrine.event_listener, event: prePersist, lazy: true }
-            - { name: doctrine.event_listener, event: postUpdate, lazy: true }
+            - { name: doctrine.event_listener, event: preUpdate, lazy: true }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
