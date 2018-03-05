@@ -5,7 +5,6 @@ namespace App\Listener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Class DoctrineExtensionListener
@@ -46,13 +45,5 @@ class DoctrineExtensionListener implements ContainerAwareInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-//        $tokenStorage = $this->container->get('security.token_storage')->getToken();
-//        $authorizationChecker = $this->container->get('security.authorization_checker');
-//        if (null !== $tokenStorage && $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-//            $loggable = $this->container->get('gedmo.listener.loggable');
-//            $loggable->setUsername($tokenStorage->getUser());
-//            $blameable = $this->container->get('gedmo.listener.blameable');
-//            $blameable->setUserValue($tokenStorage->getUser());
-//        }
     }
 }

@@ -71,6 +71,9 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.33"
     },
+    "gesdinet/jwt-refresh-token-bundle": {
+        "version": "v0.3.2"
+    },
     "gfreeau/get-jwt-bundle": {
         "version": "2.0.x-dev"
     },

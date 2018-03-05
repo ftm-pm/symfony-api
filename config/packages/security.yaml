@@ -5,8 +5,8 @@ security:
             algorithm: bcrypt
 
     role_hierarchy:
-        ROLE_EDITOR: ROLE_USER
-        ROLE_ADMIN: ROLE_EDITOR
+        ROLE_MODERATOR: ROLE_USER
+        ROLE_ADMIN: ROLE_MODERATOR
 
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
@@ -23,7 +23,7 @@ security:
         #    anonymous: ~
 
         gettoken:
-            pattern:  ^/api/getToken$
+            pattern:  ^/api/token/get$
             stateless: true
             gfreeau_get_jwt:
                 username_parameter: username
@@ -32,6 +32,11 @@ security:
                 user_checker: security.user_checker
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        refresh:
+            pattern:  ^/api/token/refresh
+            stateless: true
+            anonymous: true
 
         api:
             pattern:   ^/api
@@ -45,4 +50,6 @@ security:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/token/get, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
