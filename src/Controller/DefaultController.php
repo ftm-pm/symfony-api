@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -13,11 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/api/getToken", methods={"POST"})
+     * @Route("/")
      */
-    public function getTokenAction()
+    public function indexAction()
     {
-        // The security layer will intercept this request
-        return new Response('', 401);
+        return new JsonResponse(null, 204);
     }
 }

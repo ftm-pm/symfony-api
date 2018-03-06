@@ -7,7 +7,7 @@ use App\Handler\TranslationHandler;
 use App\Handler\UserHandler;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Gedmo\Translatable\Translatable;
 
 /**
@@ -54,6 +54,11 @@ class DoctrineEventSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $this->update($args);
+
+        $entity = $args->getObject();
+        if ($entity instanceof User) {
+           $this->userHandler->sendActivateMessage($entity);
+        }
     }
 
     /**
@@ -65,7 +70,6 @@ class DoctrineEventSubscriber implements EventSubscriber
     }
 
     /**
-     * Update entities
      * @param LifecycleEventArgs $args
      */
     public function update(LifecycleEventArgs $args)

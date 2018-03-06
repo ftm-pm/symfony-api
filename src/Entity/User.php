@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
@@ -41,15 +42,17 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\NotBlank
      * @Groups({"read", "write"})
-     * @ORM\Column(name="username", type="string", length=255, options={"comment": "Username"})
+     * @ORM\Column(name="username", type="string", length=255, options={"comment": "Username"}, unique=true)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, options={"comment": "Email"})
+     * @Assert\NotBlank
+     * @ORM\Column(name="email", type="string", length=255, options={"comment": "Email"}, unique=true)
      * @Groups({"read", "write"})
      */
     private $email;

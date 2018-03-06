@@ -29,6 +29,9 @@ services:
         decorates: 'api_platform.jsonld.normalizer.item'
         arguments: [ '@App\Serializer\ApiNormalizer.inner' ]
 
+    App\Handler\UserHandler:
+        public: true
+
     App\Handler\TranslationHandler:
         arguments:
             - "@doctrine"

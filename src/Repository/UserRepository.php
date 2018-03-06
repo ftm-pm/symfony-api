@@ -13,12 +13,16 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
     /**
-     * @param string $username
+     * @param string $email
+     * @param null $username
      * @return mixed|null|\Symfony\Component\Security\Core\User\UserInterface
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername($email, $username = null)
     {
+        if(!$username) {
+            $username = $email;
+        }
+
         return $this->createQueryBuilder('u')
             ->where('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
