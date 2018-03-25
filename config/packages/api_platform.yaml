@@ -5,3 +5,6 @@ api_platform:
         Symfony\Component\Serializer\Exception\ExceptionInterface: 400
         ApiPlatform\Core\Exception\InvalidArgumentException: 'HTTP_BAD_REQUEST'
         App\Exception\UserNotFoundException: 404
+
+framework:
+    serializer: { enable_annotations: true }

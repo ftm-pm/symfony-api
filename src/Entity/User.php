@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use App\Entity\Traits\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -19,10 +21,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
  *
- * @ApiResource(attributes={
- *     "normalization_context"={"groups"={"read"}},
- *     "denormalization_context"={"groups"={"write"}}
- * })
+ * @ApiResource(
+ *     attributes={
+ *         "normalization_context"={"groups"={"read"}},
+ *         "denormalization_context"={"groups"={"write"}}
+ *     },
+ *     itemOperations={
+ *          "get"
+ *     }
+ * )
+ * @ApiFilter(GroupFilter::class, arguments={"parameterName": "groups", "overrideDefaultGroups": false, "whitelist": {"view"}})
+ *
  */
 class User implements AdvancedUserInterface, EquatableInterface, \Serializable
 {
@@ -43,7 +52,7 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
     /**
      * @var string
      * @Assert\NotBlank
-     * @Groups({"read", "write"})
+     * @Groups({"read", "view", "write"})
      * @ORM\Column(name="username", type="string", length=255, options={"comment": "Username"}, unique=true)
      */
     private $username;
@@ -53,7 +62,7 @@ class User implements AdvancedUserInterface, EquatableInterface, \Serializable
      *
      * @Assert\NotBlank
      * @ORM\Column(name="email", type="string", length=255, options={"comment": "Email"}, unique=true)
-     * @Groups({"read", "write"})
+     * @Groups({"view", "write"})
      */
     private $email;
 
