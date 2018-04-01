@@ -11,24 +11,41 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class UserEventSubscriber implements EventSubscriberInterface
+/**
+ * Class UserEventSubscriber
+ * @package App\EventSubscriber
+ */
+final class UserEventSubscriber implements EventSubscriberInterface
 {
-    private $mailer;
+    /**
+     * @var RegistryInterface
+     */
     private $doctrine;
 
+    /**
+     * UserEventSubscriber constructor.
+     * @param RegistryInterface $doctrine
+     */
     public function __construct(RegistryInterface $doctrine)
     {
         $this->doctrine = $doctrine;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['sendMail', EventPriorities::PRE_WRITE],
+            KernelEvents::VIEW => ['checkUser', EventPriorities::PRE_WRITE],
         ];
     }
 
-    public function sendMail(GetResponseForControllerResultEvent $event)
+    /**
+     * @param GetResponseForControllerResultEvent $event
+     * @throws UserExistsException
+     */
+    public function checkUser(GetResponseForControllerResultEvent $event)
     {
         $user = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
@@ -37,8 +54,8 @@ class UserEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $rep = $this->doctrine->getManager()->getRepository('App:User');
-        $userExists = $rep->loadUserByUsername($user->getEmail(), $user->getUsername());
+        $repository = $this->doctrine->getManager()->getRepository('App:User');
+        $userExists = $repository->loadUserByUsername($user->getEmail(), $user->getUsername());
         if($userExists) {
             throw new UserExistsException('User exist.');
         }
