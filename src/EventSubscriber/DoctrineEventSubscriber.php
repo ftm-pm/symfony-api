@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\User;
 use App\Handler\TranslationHandler;
 use App\Handler\UserHandler;
 use Doctrine\Common\EventSubscriber;
@@ -54,11 +53,6 @@ class DoctrineEventSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $args)
     {
         $this->update($args);
-
-        $entity = $args->getObject();
-        if ($entity instanceof User) {
-           $this->userHandler->sendActivateMessage($entity);
-        }
     }
 
     /**
@@ -75,10 +69,6 @@ class DoctrineEventSubscriber implements EventSubscriber
     public function update(LifecycleEventArgs $args)
     {
         $entity = $args->getObject();
-
-        if ($entity instanceof User) {
-            $this->userHandler->hashPassword($entity);
-        }
 
         if ($entity instanceof Translatable) {
             $this->translationHandler->setTranslations($entity, $entity->getTranslations());
