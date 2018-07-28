@@ -43,7 +43,7 @@ php bin/console d:s:u --force
 ```bash
 curl -X POST http://my-project/api/register -d username=johndoe -d password=test -d email=johndoe@example.com
 ```
-После подтверждения email, получаем токен отправляя запрос http://my-project/api/token/get:
+После подтверждения email, получаем токен отправляя запрос `http://my-project/api/token`:
 ```json
 {
   "username": "johndoe",
@@ -53,7 +53,7 @@ curl -X POST http://my-project/api/register -d username=johndoe -d password=test
 
 или используя curl
 ```bash
-curl -X POST http://my-project/api/token/get -d username=johndoe -d password=test
+curl -X POST http://my-project/api/token -d username=johndoe -d password=test
 ```
 
 SymfonyApi вернет 2 текстовых поля: 
